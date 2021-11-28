@@ -1,0 +1,45 @@
+import java.util.Scanner;
+
+public class E01WorldTour {
+    public static void main(String[] args) {
+
+        Scanner s = new Scanner(System.in);
+
+        String line = s.nextLine();
+        StringBuilder tour = new StringBuilder(line);
+        String input;
+        while (!"Travel".equals(input = s.nextLine())) {
+
+            String command = input.split(":")[0];
+
+            switch (command) {
+                case "Add Stop":
+                    int startInd = Integer.parseInt(input.split(":")[1]);
+                    String destination = input.split(":")[2];
+                    if (startInd > tour.indexOf(String.valueOf(0)) && startInd <= tour.length() - 1) {
+                        tour.insert(startInd, destination);
+                    }
+                    System.out.println(tour);
+                    break;
+                case "Remove Stop":
+                    int beginInd = Integer.parseInt(input.split(":")[1]);
+                    int endInd = Integer.parseInt(input.split(":")[2]);
+                    if (beginInd > tour.indexOf(String.valueOf(0)) && beginInd <= tour.length() - 1
+                            && endInd > tour.indexOf(String.valueOf(0)) && endInd <= tour.length() - 1) {
+                        tour.delete(beginInd, endInd + 1);
+                    }
+                    System.out.println(tour);
+                    break;
+                case "Switch":
+                    String oldDest = input.split(":")[1];
+                    String newDest = input.split(":")[2];
+                    if (tour.toString().contains(oldDest)) {
+                        tour = new StringBuilder(tour.toString().replace(oldDest, newDest));
+                    }
+                    System.out.println(tour);
+                    break;
+            }
+        }
+        System.out.printf("Ready for world tour! Planned stops: %s" , tour);
+    }
+}
