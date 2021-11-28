@@ -1,0 +1,31 @@
+package FundamentalsExam;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class E02DestinationMapper {
+    public static void main(String[] args) {
+
+        Scanner s = new Scanner(System.in);
+
+        String regex = "(=|/)(?<location>[A-Z][A-Za-z]{2,})\\1";
+        String input = s.nextLine();
+        List<String> locations = new ArrayList<>();
+
+        int sum = 0;
+        Pattern pattern = Pattern.compile(regex);
+        Matcher destination = pattern.matcher(input);
+        while (destination.find()) {
+            String location = destination.group("location");
+            locations.add(location);
+            int length = location.length();
+            sum += length;
+        }
+        System.out.print("Destinations: ");
+        System.out.println(String.join(", " , locations));
+        System.out.printf("Travel Points: %d" , sum);
+    }
+}
